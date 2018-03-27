@@ -1,0 +1,28 @@
+<?php
+
+return [
+  'add_new'         => 'Add new',
+  'count'           => 'Count',
+  'delete'          => 'Delete',
+  'delete_selected' => 'Delete Selected',
+  'find'            => 'Find',
+  'model_created'   => 'Model Created !',
+  'model_deleted'   => 'Model Deleted !',
+  'models_deleted'  => 'Models Deleted !',
+  'model_updated'   => 'Model Updated !',
+  'models_updated'  => 'Models Updated !',
+  'name'            => 'Name',
+  'no_entries'      => 'No Data To Display',
+  'no_val'          => 'Maybe You Should Add Something First ?!!',
+  'ops'             => 'Operations',
+  'order'           => 'Order',
+  'select_all'      => 'Select All',
+  'select_non'      => 'Select Non',
+  'slug'            => 'Slug',
+  'tag_exist'       => 'Tag Already Exist',
+  'tag_ph'          => 'tag name',
+  'tags'            => 'Tags',
+  'type'            => 'Type',
+  'update'          => 'Update',
+  'type_ph'         => 'type name',
+];
