@@ -1,0 +1,113 @@
+@import './checkbox';
+
+[v-cloak] {
+    display: none;
+}
+
+.link {
+    cursor: pointer;
+}
+
+// input multi-locale
+.input-box {
+    position: relative;
+}
+
+.toggle-locale {
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    right: 0;
+    opacity: 0.3;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    &::after {
+        display: none !important;
+    }
+
+    select {
+        font-weight: bold;
+        padding: 0.4rem 0.5rem 0.5rem !important;
+        text-transform: capitalize;
+        border: none;
+        background-color: transparent;
+    }
+}
+
+.toggle-pad {
+    padding-right: 32px;
+}
+
+// animation
+.slide-up-enter-active,
+.slide-up-leave-active {
+    transition: all 0.3s ease;
+}
+
+.slide-up-enter,
+.slide-up-leave-to {
+    transform: translateY(-30px);
+    opacity: 0;
+}
+
+// editor
+// p,
+// th {
+//     text-align: center !important;
+// }
+
+.table tr.is-selected {
+    color: #fff;
+    background-color: hsl(217, 71%, 53%);
+}
+
+thead th {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    background-color: white;
+}
+
+.align-edit {
+    padding-top: 1.5rem;
+}
+
+.align-top {
+    padding-top: 0.7rem !important;
+    vertical-align: top !important;
+}
+
+.tag-list {
+    margin: 1rem 0 0.5rem;
+}
+
+.tag-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+}
+
+.tag-key {
+    padding: 0 5px;
+    text-align: right;
+    text-transform: capitalize;
+}
+
+.tag-input {
+    font-size: 1rem;
+    line-height: 1;
+    flex: 2;
+    height: 100%;
+    padding: 0.5rem;
+    border: 1px solid darken(#ebebeb, 15%);
+    border-radius: 3px;
+
+    &:focus,
+    &:active,
+    &:hover {
+        border: 1px solid #276cda;
+    }
+}

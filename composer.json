@@ -1,0 +1,42 @@
+{
+    "name": "ctf0/tagos",
+    "description": "GUI to manage tags in laravel based on spatie/laravel-tags",
+    "homepage": "https://github.com/ctf0/Tagos",
+    "license": "MIT",
+    "keywords": [
+        "ctf0",
+        "tagos",
+        "tagging",
+        "gui",
+        "laravel",
+        "manager"
+    ],
+    "authors": [
+        {
+            "name": "Muah",
+            "email": "muah003@gmail.com"
+        }
+    ],
+    "require": {
+        "php" : "~7.0",
+        "illuminate/support": "~5.5.0|~5.6.0",
+        "spatie/laravel-tags": "^2.0",
+        "ctf0/package-changelog": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ctf0\\Tagos\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ctf0\\Tagos\\TagosServiceProvider"
+            ]
+        },
+        "changeLog": "logs"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
