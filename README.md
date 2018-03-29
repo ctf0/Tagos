@@ -5,12 +5,12 @@
 
 A Tag **Editor** and **Selector** based on [spatie/laravel-tags](https://github.com/spatie/laravel-tags).
 
+<h4 align="center">Editor</h4>
 <p align="center">
-    <h5>- Editor</h5>
-    <img src="https://user-images.githubusercontent.com/7388088/37996278-64df74b4-3217-11e8-8430-9a30067ec31b.png">
+    <img src="https://user-images.githubusercontent.com/7388088/38246148-1a34865a-3741-11e8-99bd-51afd10df282.png">
 </p>
+<h4 align="center">Selector</h4>
 <p align="center">
-    <h5>- Selector</h5>
     <img src="https://user-images.githubusercontent.com/7388088/38068467-9407081a-3311-11e8-83a5-eea196fb00e3.png">
 </p>
 
@@ -75,7 +75,7 @@ npm install vue vue-awesome vue-notif axios keycode --save
     - if you are having issues [Check](https://ctf0.wordpress.com/2017/09/12/laravel-mix-es6/)
 
 ```js
-require('./../vendor/Tagos/js/manager')
+require('../vendor/Tagos/js/manager')
 
 new Vue({
     el: '#app'

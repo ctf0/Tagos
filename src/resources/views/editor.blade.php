@@ -93,19 +93,6 @@
             </div>
             <br>
 
-            {{-- delete multi --}}
-            <div class="level" v-if="ids.length > 1">
-                <div class="level-left"></div>
-                <div class="level-right">
-                    {{-- delete --}}
-                    <div class="level-item">
-                        <form action="{{ route('tagos.destroy_multi') }}" method="POST" @submit.prevent="DeleteTags($event)">
-                            <button type="submit" class="button is-danger">{{ trans('Tagos::messages.delete_selected') }} "@{{ ids.length }}"</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
             {{-- update multi --}}
             <div class="level" v-if="ids.length > 1">
                 <div class="level-left"></div>
@@ -134,11 +121,33 @@
                             <th class="no_table_data">{{ trans('Tagos::messages.no_entries') }}</th>
                         </template>
                         <template v-else>
-                            <th width="1%" nowrap class="is-dark link has-text-centered"
-                            @click="selectAll()"
-                            v-text="ids.length > 0
-                            ? '{{ trans('Tagos::messages.select_non') }}'
-                            : '{{ trans('Tagos::messages.select_all') }}'"></th>
+                            <th width="1%" class="is-dark">
+                                <div class="field has-addons is-marginless">
+                                    {{-- select multi  --}}
+                                    <div class="control">
+                                        <div class="button is-borderless is-light">
+                                            <input type="checkbox" id="all" class="cbx-checkbox"
+                                                @click="selectAll()"
+                                                :checked="ids.length">
+                                            <label for="all" class="cbx is-marginless">
+                                                <svg width="14px" height="12px" viewBox="0 0 14 12"><polyline points="1 7.6 5 11 13 1"/></svg>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    {{-- delete multi --}}
+                                    <div class="control">
+                                        <form action="{{ route('tagos.destroy_multi') }}"
+                                            method="POST"
+                                            @submit.prevent="DeleteTags($event)">
+                                            <button type="submit"
+                                                class="button is-borderless"
+                                                :disabled="ids.length < 2">
+                                                {{ trans('Tagos::messages.delete') }}
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </th>
                             <th width="1%" nowrap class="is-dark has-text-centered">{{ trans('Tagos::messages.order') }}</th>
                             <th class="is-dark">{{ trans('Tagos::messages.name') }}</th>
                             <th class="is-dark">{{ trans('Tagos::messages.slug') }}</th>
