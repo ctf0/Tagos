@@ -1,7 +1,6 @@
 /*                Libs                */
 window.Vue = require('vue')
 window.EventHub = require('vuemit')
-window.keycode = require('keycode')
 
 // axios
 window.axios = require('axios')

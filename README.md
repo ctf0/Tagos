@@ -66,9 +66,9 @@ class Post extends Model
 - install dependencies
 
 ```bash
-yarn add vue vue-awesome vue-notif axios keycode
+yarn add vue vue-awesome vue-notif axios
 # or
-npm install vue vue-awesome vue-notif axios keycode --save
+npm install vue vue-awesome vue-notif axios --save
 ```
 
 - add this one liner to your main js file and run `npm run watch` to compile your `js/css` files.
