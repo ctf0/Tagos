@@ -12,7 +12,7 @@
                        @dblclick="showAllTags = true"
                        v-model="tagName"
                        :placeholder="trans('tag_ph')"
-                       ref="input">
+                       ref="tagName">
 
                 <!-- tags list -->
                 <div class="tag-list field is-grouped is-grouped-multiline"
@@ -22,7 +22,7 @@
                          :key="i"
                          @click="addToList(item)">
                         <div class="tags has-addons">
-                            <span class="tag is-link is-marginless">{{ item.name }}</span>
+                            <span class="tag is-info is-marginless">{{ item.name }}</span>
                             <span class="tag is-dark is-marginless" v-if="item.type">{{ item.type }}</span>
                         </div>
                     </div>
@@ -31,7 +31,10 @@
 
             <!-- tag type -->
             <div class="control">
-                <input class="input" v-model="tagType" :placeholder="trans('type_ph')">
+                <input class="input"
+                       v-model="tagType"
+                       :placeholder="trans('type_ph')"
+                       ref="tagType">
             </div>
 
             <!-- add -->
@@ -46,9 +49,9 @@
                           class="field is-grouped is-grouped-multiline">
             <div class="control" v-for="(item,i) in selectedTags" :key="i">
                 <div class="tags has-addons">
-                    <span class="tag is-danger is-marginless">{{ item.name }}</span>
-                    <span class="tag is-dark is-marginless" v-if="item.type">{{ item.type }}</span>
-                    <span class="tag is-delete is-marginless link" @click="removeFromList(i)"/>
+                    <span class="tag is-info is-marginless">{{ item.name }}</span>
+                    <span class="tag is-primary is-marginless" v-if="item.type">{{ item.type }}</span>
+                    <span class="tag is-danger is-delete is-marginless link" @click="removeFromList(i)"/>
                 </div>
             </div>
         </transition-group>
@@ -112,16 +115,27 @@ export default {
     },
     methods: {
         shortCuts(e) {
-            let key = keycode(e)
+            let key = e.keyCode
             let list = this.filteredList.length
 
-            if (!list && this.isFocused('input', e) && key == 'enter') {
+            // enter
+            if (key == 13) {
                 e.preventDefault()
                 e.stopPropagation()
-                return this.addToList()
+
+                // type
+                if (this.isFocused('tagType', e) && !this.tagName) {
+                    return this.showNotif(this.trans('no_val'), 'warning')
+                }
+
+                // name
+                if (!list && this.isFocused('tagName', e)) {
+                    return this.addToList()
+                }
             }
 
-            if (key == 'esc') {
+            // esc
+            if (key == 27) {
                 return this.hideLists()
             }
         },
@@ -143,13 +157,11 @@ export default {
                 return this.selectedTags.push(item)
             }
 
-            let str = this.tagName.trim()
-            str != ''
-                ? this.selectedTags.push({name: str, type: this.tagType})
-                : this.showNotif(this.trans('no_val'), 'warning')
+            let str = this.tagName
+            str ? this.selectedTags.push({name: str.trim(), type: this.tagType}) : this.showNotif(this.trans('no_val'), 'warning')
 
             this.tagName = ''
-            this.$refs.input.focus()
+            this.$refs.tagName.focus()
         },
         removeFromList(i) {
             return this.selectedTags.splice(i, 1)

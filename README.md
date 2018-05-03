@@ -22,79 +22,49 @@ A Tag **Editor** and **Selector** based on [spatie/laravel-tags](https://github.
 
 - `composer require ctf0/tagos`
 
-- after installation, package will auto-add
-    + package routes to `routes/web.php`
-    + package assets compiling to `webpack.mix.js`
-
 - publish the package assets with
 
     `php artisan vendor:publish --provider="ctf0\Tagos\TagosServiceProvider"`  
     `php artisan vendor:publish --provider="Spatie\Tags\TagsServiceProvider" --tag="migrations"`
 
-- migrate the db with `php artisan migrate`
-
-- there is also a seeder to quickly get you going
-```php
-// database/seeds/DatabaseSeeder.php
-
-class DatabaseSeeder extends Seeder
-{
-    /**
-     * Run the database seeds.
-     */
-    public function run()
-    {
-        //...
-
-        $this->call(TagsTableSeeder::class);
-    }
-}
-```
-
-- add `HasTags` trait to your model ex.`post`
-
-```php
-use ctf0\Tagos\Traits\HasTags;
-use Illuminate\Database\Eloquent\Model;
-
-class Post extends Model
-{
-    use HasTags;
-}
-```
+- after installation, package will auto-add
+    + package routes to `routes/web.php`
+    + package assets compiling to `webpack.mix.js`
 
 - install dependencies
 
-```bash
-yarn add vue vue-awesome vue-notif axios keycode
-# or
-npm install vue vue-awesome vue-notif axios keycode --save
-```
+    ```bash
+    yarn add vue vue-awesome@v2 vue-notif axios
+    # or
+    npm install vue vue-awesome@v2 vue-notif axios --save
+    ```
 
 - add this one liner to your main js file and run `npm run watch` to compile your `js/css` files.
     - if you are having issues [Check](https://ctf0.wordpress.com/2017/09/12/laravel-mix-es6/)
 
-```js
-require('../vendor/Tagos/js/manager')
+    ```js
+    require('../vendor/Tagos/js/manager')
 
-new Vue({
-    el: '#app'
-})
-```
+    new Vue({
+        el: '#app'
+    })
+    ```
 
 <br>
 
 ## Features
 - tags editor & selector.
+- taggable models softdelete.
 - show tag suggestion as you type.
 - easily add new tag name & type.
 - search for tags by name in tags index.
 - shortcuts
 
-    |    navigation    |  keyboard | mouse (click) |
-    |------------------|-----------|---------------|
-    | hide tags list   | esc       | anywhere      |
-    | show tags list   |           | *(input)* 2x  |
+    |   navigation   | keyboard | mouse (click) |
+    |----------------|----------|---------------|
+    | show all tags  |          | *(input)* 2x  |
+    | add new tag    | enter    | *             |
+    | hide tags list | esc      | anywhere      |
 
 <br>
 
@@ -128,50 +98,73 @@ return [
 
 ## Usage
 
-#### Routes
-| Method |             URL             |         Name        |                        Action                        |
-|--------|-----------------------------|---------------------|------------------------------------------------------|
-| GET    | tags/editor                 | tagos.editor        | \ctf0\Tagos\Controllers\TagosController@editor       |
-| GET    | tags                        | tagos.index         | \ctf0\Tagos\Controllers\TagosController@index        |
-| GET    | tags/type/{type}            | tagos.index_type    | \ctf0\Tagos\Controllers\TagosController@indexByType  |
-| GET    | tags/{slug}                 | tagos.show          | \ctf0\Tagos\Controllers\TagosController@show         |
-| GET    | tags/type/{type}/tag/{slug} | tagos.show_type     | \ctf0\Tagos\Controllers\TagosController@showByType   |
+- migrate the tags table with `php artisan migrate`
 
-#### Editor
+- there is also a seeder to quickly get you going
+    ```php
+    // database/seeds/DatabaseSeeder.php
 
-- visit `localhost:8000/tags/editor`
+    class DatabaseSeeder extends Seeder
+    {
+        /**
+         * Run the database seeds.
+         */
+        public function run()
+        {
+            //...
+
+            $this->call(TagsTableSeeder::class);
+        }
+    }
+    ```
+
+- add `HasTags` trait to your model ex.`post`
+
+    ```php
+    use ctf0\Tagos\Traits\HasTags;
+    use Illuminate\Database\Eloquent\Model;
+
+    class Post extends Model
+    {
+        use HasTags;
+    }
+    ```
+
+<br>
 
 #### Attaching Tags
 
 - show the tag selector
     + ex.`posts create view`
 
-    ```blade
-    @include('Tagos::_add')
-    ```
+        ```blade
+        @include('Tagos::_add')
+        ```
 
     + ex.`posts edit view`
 
-    ```blade
-    @include('Tagos::_add', ['old' => app('tagos')->getModelTags($post)])
-    ```
+        ```blade
+        @include('Tagos::_add', ['old' => app('tagos')->getModelTags($post)])
+        ```
 
 - save the tags
     + `store()`
 
-    ```php
-    $model = Post::create([...]);
+        ```php
+        $model = Post::create([...]);
 
-    app('tagos')->saveTags($model, $request);
-    ```
+        app('tagos')->saveTags($model, $request);
+        ```
 
     + `update()`
 
-    ```php
-    $model = Post::find($id)->update([...]);
+        ```php
+        $model = Post::find($id)->update([...]);
 
-    app('tagos')->saveTags($model, $request);
-    ```
+        app('tagos')->saveTags($model, $request);
+        ```
+
+<br>
 
 #### Display Model Tags
 
@@ -181,3 +174,14 @@ return [
     'showType' => true // whether to show the tag type or not
 ])
 ```
+
+<br>
+
+#### Routes
+| Method |             URL             |         Name        |                        Action                        |
+|--------|-----------------------------|---------------------|------------------------------------------------------|
+| GET    | tags/editor                 | tagos.editor        | \ctf0\Tagos\Controllers\TagosController@editor       |
+| GET    | tags                        | tagos.index         | \ctf0\Tagos\Controllers\TagosController@index        |
+| GET    | tags/type/{type}            | tagos.index_type    | \ctf0\Tagos\Controllers\TagosController@indexByType  |
+| GET    | tags/{slug}                 | tagos.show          | \ctf0\Tagos\Controllers\TagosController@show         |
+| GET    | tags/type/{type}/tag/{slug} | tagos.show_type     | \ctf0\Tagos\Controllers\TagosController@showByType   |

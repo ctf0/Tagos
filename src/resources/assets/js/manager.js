@@ -1,7 +1,6 @@
 /*                Libs                */
 window.Vue = require('vue')
 window.EventHub = require('vuemit')
-window.keycode = require('keycode')
 
 // axios
 window.axios = require('axios')
@@ -10,8 +9,8 @@ axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest'
 }
 axios.interceptors.response.use(
-    (response) => {return response},
-    (error) => {return Promise.reject(error.response)}
+    (response) => response,
+    (error) => Promise.reject(error.response)
 )
 
 // vue-awesome
