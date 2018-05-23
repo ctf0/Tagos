@@ -1,29 +1,29 @@
 <template>
     <div class="control">
         <!-- tags to be saved -->
-        <input type="hidden"
-               name="tags"
-               :value="JSON.stringify(selectedTags)">
+        <input :value="JSON.stringify(selectedTags)"
+               type="hidden"
+               name="tags">
 
-        <div class="field has-addons" ref="wrapper">
+        <div ref="wrapper" class="field has-addons">
             <div class="control tag-input is-expanded">
                 <!-- tag name -->
-                <input class="input"
-                       @dblclick="showAllTags = true"
+                <input ref="tagName"
                        v-model="tagName"
                        :placeholder="trans('tag_ph')"
-                       ref="tagName">
+                       class="input"
+                       @dblclick="showAllTags = true">
 
                 <!-- tags list -->
-                <div class="tag-list field is-grouped is-grouped-multiline"
-                     v-if="filteredList.length && (showTagList || showAllTags)">
+                <div v-if="filteredList.length && (showTagList || showAllTags)"
+                     class="tag-list field is-grouped is-grouped-multiline">
                     <div v-for="(item,i) in filteredList"
-                         class="control link"
                          :key="i"
+                         class="control link"
                          @click="addToList(item)">
                         <div class="tags has-addons">
                             <span class="tag is-info is-marginless">{{ item.name }}</span>
-                            <span class="tag is-dark is-marginless" v-if="item.type">{{ item.type }}</span>
+                            <span v-if="item.type" class="tag is-dark is-marginless">{{ item.type }}</span>
                         </div>
                     </div>
                 </div>
@@ -31,10 +31,10 @@
 
             <!-- tag type -->
             <div class="control">
-                <input class="input"
+                <input ref="tagType"
                        v-model="tagType"
                        :placeholder="trans('type_ph')"
-                       ref="tagType">
+                       class="input">
             </div>
 
             <!-- add -->
@@ -47,10 +47,10 @@
         <transition-group tag="div"
                           name="slide-up"
                           class="field is-grouped is-grouped-multiline">
-            <div class="control" v-for="(item,i) in selectedTags" :key="i">
+            <div v-for="(item,i) in selectedTags" :key="i" class="control">
                 <div class="tags has-addons">
                     <span class="tag is-info is-marginless">{{ item.name }}</span>
-                    <span class="tag is-primary is-marginless" v-if="item.type">{{ item.type }}</span>
+                    <span v-if="item.type" class="tag is-primary is-marginless">{{ item.type }}</span>
                     <span class="tag is-danger is-delete is-marginless link" @click="removeFromList(i)"/>
                 </div>
             </div>
@@ -124,8 +124,12 @@ export default {
                 e.stopPropagation()
 
                 // type
-                if (this.isFocused('tagType', e) && !this.tagName) {
-                    return this.showNotif(this.trans('no_val'), 'warning')
+                if (this.isFocused('tagType', e)) {
+                    if (!this.tagName) {
+                        return this.showNotif(this.trans('no_val'), 'warning')
+                    }
+
+                    return this.addToList()
                 }
 
                 // name

@@ -2,6 +2,7 @@
 
 namespace ctf0\Tagos;
 
+use ctf0\Tagos\Observers\TagObserver;
 use Illuminate\Support\ServiceProvider;
 
 class TagosServiceProvider extends ServiceProvider
@@ -16,6 +17,7 @@ class TagosServiceProvider extends ServiceProvider
         $this->file = app('files');
 
         $this->packagePublish();
+        $this->cacheAndObserver();
 
         // append extra data
         if (!app('cache')->store('file')->has('ct-tagos')) {
@@ -56,6 +58,24 @@ class TagosServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/resources/views' => resource_path('views/vendor/Tagos'),
         ], 'views');
+    }
+
+    /**
+     * model events cacheAndObserver.
+     *
+     * @return [type] [description]
+     */
+    protected function cacheAndObserver()
+    {
+        $config = config('tags.model');
+
+        if ($config) {
+            app('cache')->rememberForever('tagos', function () use ($config) {
+                return app($config)->ordered()->get();
+            });
+
+            app($config)->observe(TagObserver::class);
+        }
     }
 
     /**

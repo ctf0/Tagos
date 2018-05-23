@@ -73,8 +73,6 @@ A Tag **Editor** and **Selector** based on [spatie/laravel-tags](https://github.
 **config/tags.php**
 
 ```php
-<?php
-
 return [
     /*
      * The given function generates a URL friendly "slug" from the tag name property before saving it.
@@ -139,13 +137,13 @@ return [
     + ex.`posts create view`
 
         ```blade
-        @include('Tagos::_add')
+        @include('Tagos::partials.add')
         ```
 
     + ex.`posts edit view`
 
         ```blade
-        @include('Tagos::_add', ['old' => app('tagos')->getModelTags($post)])
+        @include('Tagos::partials.add', ['old' => app('tagos')->getModelTags($post)])
         ```
 
 - save the tags
@@ -170,7 +168,7 @@ return [
 #### Display Model Tags
 
 ```blade
-@include('Tagos::_display', [
+@include('Tagos::partials.display', [
     'tags' => $post->tags,
     'showType' => true // whether to show the tag type or not
 ])
@@ -179,6 +177,7 @@ return [
 <br>
 
 #### Routes
+
 | Method |             URL             |         Name        |                        Action                        |
 |--------|-----------------------------|---------------------|------------------------------------------------------|
 | GET    | tags/editor                 | tagos.editor        | \ctf0\Tagos\Controllers\TagosController@editor       |

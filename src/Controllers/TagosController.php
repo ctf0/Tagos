@@ -2,7 +2,6 @@
 
 namespace ctf0\Tagos\Controllers;
 
-use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -16,9 +15,9 @@ class TagosController extends Controller
 
     public function __construct()
     {
-        $this->relation = DB::table('taggables');
+        $this->relation = app('db')->table('taggables');
         $this->locales  = [config('app.locale')];
-        $this->tagClass = app(config('tags.model'));
+        $this->tagClass = app('cache')->get('tagos');
     }
 
     /**
@@ -28,7 +27,7 @@ class TagosController extends Controller
      */
     public function index()
     {
-        $tags     = $this->tagClass->ordered()->get();
+        $tags     = $this->tagClass;
         $showType = true;
 
         return view('Tagos::index', compact('tags', 'showType'));
@@ -36,7 +35,7 @@ class TagosController extends Controller
 
     public function indexByType($type)
     {
-        $tags     = $this->tagClass->getWithType($type);
+        $tags     = $this->tagClass->where('type', $type);
         $showType = false;
 
         return view('Tagos::index', compact('tags', 'showType'));
@@ -51,7 +50,7 @@ class TagosController extends Controller
     {
         $locales  = $this->locales;
         $relation = $this->relation->get();
-        $tags     = $this->tagClass->ordered()->get()->map(function ($tag) use ($relation) {
+        $tags     = $this->tagClass->map(function ($tag) use ($relation) {
             return [
                 'count' => $relation->where('tag_id', $tag->id)->count(),
                 'order' => $tag->order_column,
@@ -95,7 +94,7 @@ class TagosController extends Controller
      */
     public function store(Request $request)
     {
-        $tag = $this->tagClass->Create($request->all());
+        $tag = app(config('tags.model'))->Create($request->all());
 
         return response()->json([
             'msg'  => trans('Tagos::messages.model_created'),
@@ -123,7 +122,7 @@ class TagosController extends Controller
         $request->validate(['order' => 'required']);
 
         $reload    = false;
-        $tagModel  = $this->tagClass->get();
+        $tagModel  = app(config('tags.model'));
         $new_order = $request->order;
 
         $tag = $tagModel->find($id);
@@ -153,7 +152,7 @@ class TagosController extends Controller
 
     public function updateMulti(Request $request)
     {
-        foreach ($this->tagClass->whereIn('id', $request->ids)->get() as $model) {
+        foreach (app(config('tags.model'))->whereIn('id', $request->ids)->get() as $model) {
             $model->update(['type' => $request->type]);
         }
 
@@ -171,7 +170,7 @@ class TagosController extends Controller
      */
     public function destroy($id)
     {
-        $this->tagClass->destroy($id);
+        app(config('tags.model'))->destroy($id);
 
         return response()->json([
             'msg' => trans('Tagos::messages.model_deleted'),
@@ -180,7 +179,7 @@ class TagosController extends Controller
 
     public function destroyMulti(Request $request)
     {
-        $this->tagClass->destroy($request->ids);
+        app(config('tags.model'))->destroy($request->ids);
 
         return response()->json([
             'msg' => trans('Tagos::messages.models_deleted'),

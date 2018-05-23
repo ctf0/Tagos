@@ -17,7 +17,7 @@ trait Ops
 
     protected function getModelsByTag($slug)
     {
-        $tag = $this->tagClass->where('slug->' . app()->getLocale(), $slug)->first();
+        $tag = $this->tagClass->where('slug', $slug)->first();
 
         return $this->relation->get()->where('tag_id', $tag->id)->groupBy(function ($item) {
             return $item->taggable_type;
@@ -29,7 +29,7 @@ trait Ops
     protected function getModelsByType($type, $slug)
     {
         $tag = $this->tagClass
-            ->where('slug->' . app()->getLocale(), $slug)
+            ->where('slug', $slug)
             ->where('type', $type)
             ->first();
 

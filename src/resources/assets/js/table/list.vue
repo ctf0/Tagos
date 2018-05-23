@@ -1,5 +1,5 @@
 <script>
-import Search from './mixins/search'
+import Search from './../mixins/search'
 import TagosItem from './item.vue'
 
 export default {

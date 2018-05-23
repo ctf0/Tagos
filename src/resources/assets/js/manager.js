@@ -20,7 +20,6 @@ Vue.component('icon', require('vue-awesome/components/Icon'))
 
 /*                Components                */
 Vue.component('Tagos', require('./add.vue'))
-Vue.component('TagosList', require('./list.vue'))
+Vue.component('TagosList', require('./table/list.vue'))
 Vue.component('TagosIndex', require('./index.vue'))
 Vue.component('MyNotification', require('vue-notif'))
-

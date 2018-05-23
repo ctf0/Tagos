@@ -1,4 +1,4 @@
-@extends('Tagos::_shared')
+@extends('Tagos::partials.shared')
 
 @section('content')
     <div class="columns is-multiline">
@@ -20,7 +20,7 @@
                                 <h3 class="title">{{ $item->title }}</h3>
                                 <br>
                                 {{-- tags --}}
-                                @include('Tagos::_display', ['tags' => $one->tags])
+                                @include('Tagos::partials.display', ['tags' => $one->tags])
                             </div>
                         </div>
                     </div>

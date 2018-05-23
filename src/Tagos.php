@@ -8,7 +8,7 @@ class Tagos
 
     public function __construct()
     {
-        $this->tagClass = app(config('tags.model'));
+        $this->tagClass = app('cache')->get('tagos');
     }
 
     /**
@@ -18,7 +18,7 @@ class Tagos
      */
     public function getTags()
     {
-        $res = $this->tagClass->get()->map(function ($item) {
+        $res = $this->tagClass->map(function ($item) {
             return [
                 'name'=> $item->name,
                 'type'=> $item->type,
@@ -65,7 +65,7 @@ class Tagos
         $tags  = json_decode($request->tags, true);
 
         foreach ($tags as $one) {
-            $items[] = $this->tagClass->findOrCreate($one['name'], $one['type']);
+            $items[] = app(config('tags.model'))->findOrCreate($one['name'], $one['type']);
         }
 
         return $model->syncTags($items);

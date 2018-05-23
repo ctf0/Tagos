@@ -1,4 +1,4 @@
-@extends('Tagos::_shared')
+@extends('Tagos::partials.shared')
 @section('title', trans('Tagos::messages.tags'))
 
 @section('content')

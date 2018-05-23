@@ -1,4 +1,4 @@
-@extends('Tagos::_shared')
+@extends('Tagos::partials.shared')
 
 @section('content')
     <tagos-index inline-template :names-list="{{ $tags->pluck('name') }}">
