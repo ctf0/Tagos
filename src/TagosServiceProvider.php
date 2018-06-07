@@ -3,6 +3,7 @@
 namespace ctf0\Tagos;
 
 use ctf0\Tagos\Observers\TagObserver;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class TagosServiceProvider extends ServiceProvider
@@ -67,14 +68,14 @@ class TagosServiceProvider extends ServiceProvider
      */
     protected function cacheAndObserver()
     {
-        $config = config('tags.model');
+        $model = config('tags.model');
 
-        if ($config) {
-            app('cache')->rememberForever('tagos', function () use ($config) {
-                return app($config)->ordered()->get();
+        if ($model && Schema::hasTable('tags')) {
+            app('cache')->rememberForever('tagos', function () use ($model) {
+                return app($model)->ordered()->get();
             });
 
-            app($config)->observe(TagObserver::class);
+            app($model)->observe(TagObserver::class);
         }
     }
 

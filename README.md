@@ -1,7 +1,6 @@
 # Tagos
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/ctf0/tagos.svg)](https://packagist.org/packages/ctf0/tagos) [![Total Downloads](https://img.shields.io/packagist/dt/ctf0/tagos.svg)](https://packagist.org/packages/ctf0/tagos)
-[![Donate with Bitcoin](https://en.cryptobadges.io/badge/micro/16ri7Hh848bw7vxbEevKHFuHXLmsV8Vc9L)](https://en.cryptobadges.io/donate/16ri7Hh848bw7vxbEevKHFuHXLmsV8Vc9L)
+[![Latest Stable Version](https://img.shields.io/packagist/v/ctf0/tagos.svg)](https://packagist.org/packages/ctf0/tagos) [![Total Downloads](https://img.shields.io/packagist/dt/ctf0/tagos.svg)](https://packagist.org/packages/ctf0/tagos) [![Donate with Bitcoin](https://en.cryptobadges.io/badge/micro/16ri7Hh848bw7vxbEevKHFuHXLmsV8Vc9L)](https://en.cryptobadges.io/donate/16ri7Hh848bw7vxbEevKHFuHXLmsV8Vc9L)
 
 A Tag **Editor** and **Selector** based on [spatie/laravel-tags](https://github.com/spatie/laravel-tags).
 
@@ -131,7 +130,12 @@ return [
 
 <br>
 
-#### Attaching Tags
+> #### Get All tags
+```php
+app('cache')->get('tagos');
+```
+
+> #### Attaching Tags
 
 - show the tag selector
     + ex.`posts create view`
@@ -165,7 +169,7 @@ return [
 
 <br>
 
-#### Display Model Tags
+> #### Display Model Tags
 
 ```blade
 @include('Tagos::partials.display', [
