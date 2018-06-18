@@ -15,13 +15,13 @@ class TagosServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->file = app('files');
+        $this->file = $this->app['files'];
 
         $this->packagePublish();
         $this->cacheAndObserver();
 
         // append extra data
-        if (!app('cache')->store('file')->has('ct-tagos')) {
+        if (!$this->app['cache']->store('file')->has('ct-tagos')) {
             $this->autoReg();
         }
     }
@@ -68,14 +68,14 @@ class TagosServiceProvider extends ServiceProvider
      */
     protected function cacheAndObserver()
     {
-        $model = config('tags.model');
+        $model = $this->app['config']->get('tags.model');
 
         if ($model && Schema::hasTable('tags')) {
-            app('cache')->rememberForever('tagos', function () use ($model) {
-                return app($model)->ordered()->get();
+            $this->app['cache']->rememberForever('tagos', function () use ($model) {
+                return $this->app->make($model)->ordered()->get();
             });
 
-            app($model)->observe(TagObserver::class);
+            $this->app->make($model)->observe(TagObserver::class);
         }
     }
 
@@ -107,7 +107,7 @@ class TagosServiceProvider extends ServiceProvider
         }
 
         // run check once
-        app('cache')->store('file')->rememberForever('ct-tagos', function () {
+        $this->app['cache']->store('file')->rememberForever('ct-tagos', function () {
             return 'added';
         });
     }

@@ -16,6 +16,8 @@ axios.interceptors.response.use(
 // vue-awesome
 import 'vue-awesome/icons/search'
 import 'vue-awesome/icons/times'
+import 'vue-awesome/icons/trash'
+import 'vue-awesome/icons/anchor'
 Vue.component('icon', require('vue-awesome/components/Icon'))
 
 /*                Components                */

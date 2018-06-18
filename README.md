@@ -6,7 +6,7 @@ A Tag **Editor** and **Selector** based on [spatie/laravel-tags](https://github.
 
 <h4 align="center">Editor</h4>
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/7388088/38246148-1a34865a-3741-11e8-99bd-51afd10df282.png">
+    <img src="https://user-images.githubusercontent.com/7388088/41531521-de565f66-72f3-11e8-8a2a-e07ea1002e1b.png">
 </p>
 <h4 align="center">Selector</h4>
 <p align="center">

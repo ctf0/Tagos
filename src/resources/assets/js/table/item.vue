@@ -1,72 +1,111 @@
 <template>
     <transition name="slide-up" mode="out-in">
-        <tr @click="showMore()" class="link"
-            @mouseenter="!more ? $event.target.classList.add('is-selected') : false"
-            @mouseleave="$event.target.classList.remove('is-selected')">
-
-            <!-- select -->
-            <td :class="{'align-top': more}" style="text-align: center">
-                <p>
-                    <input type="checkbox" :id="`tag-${tag.id}`"
-                           v-model="$parent.ids"
-                           class="cbx-checkbox"
-                           :value="tag.id">
+        <div class="column is-3">
+            <div :data-order="!more ? tagOrder : ''" class="box" @click="showMore()">
+                <!-- select -->
+                <section class="tag-ops">
+                    <input :id="`tag-${tag.id}`" v-model="$parent.ids"
+                           :value="tag.id"
+                           type="checkbox"
+                           class="cbx-checkbox">
                     <label :for="`tag-${tag.id}`" class="cbx is-marginless">
                         <svg width="14px" height="12px" viewBox="0 0 14 12"><polyline points="1 7.6 5 11 13 1"/></svg>
                     </label>
-                </p>
-            </td>
+                </section>
 
-            <!-- order -->
-            <td :class="{'align-top': more}" style="text-align: center">
-                <p>{{ tag.order }}</p>
-                <p v-show="more" class="align-edit">
-                    <input type="text" v-model="tagOrder" class="tag-input" @click.stop>
-                </p>
-            </td>
-
-            <!-- name -->
-            <td :class="{'align-top': more}">
-                <p>{{ getTitle(tag.name) }}</p>
-                <ul class="tag-list" v-show="more">
-                    <li v-for="(v, k) in tagName" class="tag-item">
-                        <span class="tag-key">{{ k }} :</span>
-                        <input type="text" v-model="tagName[k]" class="tag-input" :placeholder="trans('tag_ph')" @click.stop>
-                    </li>
-                </ul>
-            </td>
-
-            <!-- slug -->
-            <td :class="{'align-top': more}">
-                <p v-if="tag.count == 0">{{ getTitle(tag.slug) }}</p>
-                <p v-else><a :href="getTagUrl" target="_blank" @click.stop>{{ getTitle(tag.slug) }}</a></p>
-            </td>
-
-            <!-- type -->
-            <td :class="{'align-top': more}">
-                <p><a :href="getTagTypeUrl" target="_blank" @click.stop>{{ tag.type || '&nbsp;' }}</a></p>
-                <p v-show="more" class="align-edit">
-                    <input type="text" v-model="tagType" class="tag-input" :placeholder="trans('type_ph')" @click.stop>
-                </p>
-            </td>
-
-            <!-- count -->
-            <td :class="{'align-top': more}">
-                <p>{{ tag.count }}</p>
-            </td>
-
-            <!-- ops -->
-            <td :class="{'align-top': more}">
-                <div class="field is-grouped is-grouped-centered">
-                    <p class="control">
-                        <button class="is-inline-block button is-success" @click.stop="FormSubmit('updateRoute', 'put')" v-if="more">{{ trans('update') }}</button>
+                <template v-if="!more">
+                    <!-- count -->
+                    <p class="title">
+                        <span class="icon"><icon name="anchor" scale="0.9"/></span>
+                        <span>{{ tag.count }}</span>
                     </p>
-                    <p class="control">
-                        <button class="is-inline-block button is-danger" @click.stop="FormSubmit('deleteRoute', 'delete')">{{ trans('delete') }}</button>
-                    </p>
-                </div>
-            </td>
-        </tr>
+
+                    <!-- title -->
+                    <p class="title is-marginless">{{ getTitle(tag.name) }}</p>
+
+                    <!-- slug -->
+                    <p v-if="tag.count == 0" class="subtitle is-marginless">{{ getTitle(tag.slug) }}</p>
+                    <a v-else
+                       :href="getTagUrl"
+                       target="_blank"
+                       class="subtitle is-marginless has-text-info"
+                       @click.stop>
+                        {{ getTitle(tag.slug) }}
+                    </a>
+
+                    <div class="level m-t-20">
+                        <!-- type -->
+                        <div class="level-left">
+                            <a v-if="tagType"
+                               :href="getTagTypeUrl"
+                               target="_blank"
+                               class="tag is-primary"
+                               @click.stop>
+                                {{ tagType }}
+                            </a>
+                        </div>
+                        <!-- delete -->
+                        <div class="level-right">
+                            <button class="button is-danger"
+                                    @click.stop="FormSubmit('deleteRoute', 'delete')">
+                                <span class="icon"><icon name="trash"/></span>
+                            </button>
+                        </div>
+                    </div>
+                </template>
+
+                <template v-else>
+                    <!-- order -->
+                    <div class="field">
+                        <label class="label">{{ trans('order') }}</label>
+                        <input v-model="tagOrder" type="text" class="tag-input" @click.stop>
+                    </div>
+
+                    <!-- name -->
+                    <div class="field">
+                        <label class="label">{{ trans('name') }}</label>
+                        <ul class="tag-list" @click.stop>
+                            <li v-for="(v, k) in tagName" :data-lang="k" class="tag-item">
+                                <input v-model="tagName[k]"
+                                       :placeholder="trans('tag_ph')"
+                                       type="text"
+                                       class="tag-input"
+                                       @click.stop>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- type -->
+                    <div class="field m-b-50">
+                        <label class="label">{{ trans('type') }}</label>
+                        <input v-model="tagType"
+                               :placeholder="trans('type_ph')"
+                               type="text"
+                               class="tag-input"
+                               @click.stop>
+                    </div>
+
+                    <!-- ops -->
+                    <div class="level is-mobile">
+                        <!-- update -->
+                        <div class="level-left">
+                            <button class="button is-success"
+                                    @click.stop="FormSubmit('updateRoute', 'put')">
+                                {{ trans('update') }}
+                            </button>
+                        </div>
+
+                        <!-- delete -->
+                        <div class="level-right">
+                            <button class="button is-danger"
+                                    @click.stop="FormSubmit('deleteRoute', 'delete')">
+                                <span class="icon"><icon name="trash"/></span>
+                            </button>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
     </transition>
 </template>
 

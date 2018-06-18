@@ -1,6 +1,6 @@
 // https://codepen.io/andreasstorm/pen/ybPwre
 $grey-lighter: #dbdbdb;
-$primary: #ff3860;
+$primary: #23d160;
 
 .cbx-checkbox {
     &[type='checkbox'],
@@ -16,7 +16,7 @@ $primary: #ff3860;
     width: 14px;
     height: 14px;
     margin-right: 6px;
-    cursor: help;
+    cursor: pointer;
     vertical-align: sub;
     border: 1px solid $grey-lighter;
     border-radius: 3px;
@@ -48,7 +48,7 @@ $primary: #ff3860;
 
     svg {
         position: relative;
-        top: -1px;
+        top: -3px;
         transform: scale(0);
         fill: none;
         stroke-linecap: round;
