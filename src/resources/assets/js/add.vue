@@ -15,7 +15,7 @@
                        @dblclick="showAllTags = true">
 
                 <!-- tags list -->
-                <div v-if="filteredList.length && (showTagList || showAllTags)"
+                <div v-show="filteredList.length && (showTagList || showAllTags)"
                      class="tag-list field is-grouped is-grouped-multiline">
                     <div v-for="(item,i) in filteredList"
                          :key="i"
@@ -44,7 +44,8 @@
         </div>
 
         <!-- selected tags -->
-        <transition-group tag="div"
+        <transition-group :style="listPadding"
+                          tag="div"
                           name="slide-up"
                           class="field is-grouped is-grouped-multiline">
             <div v-for="(item,i) in selectedTags" :key="i" class="control">
@@ -59,26 +60,26 @@
 </template>
 
 <style scoped lang="scss">
+    .field {
+        transition: all 0.2s;
+    }
+
     .tag-input {
         position: relative;
 
         .tag-list {
             position: absolute;
-            top: calc(100% - 1px);
+            top: 100%;
             width: 100%;
-            padding: 0.5rem 0.75rem 0.25rem;
+            padding: 1rem 0 0;
             left: 0;
-            z-index: 1;
-            background: white;
-            border: 1px solid #dde3e6;
-            border-top: none;
-            border-radius: 0 0 3px 3px;
-            overflow: hidden;
         }
     }
 </style>
 
 <script>
+import Fuse from 'fuse.js'
+
 export default {
     props: ['oldList', 'tagsList', 'translation'],
     data() {
@@ -87,7 +88,8 @@ export default {
             tagType: null,
             showAllTags: false,
             showTagList: true,
-            selectedTags: this.oldList || []
+            selectedTags: this.oldList || [],
+            listPadding: ''
         }
     },
     created() {
@@ -99,11 +101,14 @@ export default {
         })
     },
     computed: {
+        fuseLib() {
+            return new Fuse(this.fullList(), {keys: ['name']})
+        },
         filteredList() {
-            if (this.tagName) {
-                return this.fullList().filter((e) => {
-                    return e.name.includes(this.tagName)
-                })
+            let val = this.tagName
+
+            if (val) {
+                return this.fuseLib.search(val)
             }
 
             if (this.showAllTags) {
@@ -144,8 +149,10 @@ export default {
             }
         },
 
+        // ops
         fullList() {
             let list = this.selectedTags.length ? this.selectedTags : []
+
             return this.tagsList.filter((obj) => {
                 return !list.some((e) => {
                     return obj.name == e.name && obj.type == e.type
@@ -175,6 +182,7 @@ export default {
             if (this.showTagList) return this.showTagList = false
         },
 
+        // helpers
         isFocused(item, e) {
             return this.$refs[item].contains(e.target)
         },
@@ -205,14 +213,36 @@ export default {
                 type: s,
                 duration: duration
             })
+        },
+        updatePadding(s = true) {
+            s
+                ? this.$nextTick(() => {
+                    this.listPadding = {'padding-top': document.querySelector('.tag-list').clientHeight + 'px'}
+                })
+                : this.listPadding = {'padding-top': 0}
         }
     },
     watch: {
         tagName(val) {
-            if (val == '') {
-                this.showTagList = true
+            if (val == '') this.showTagList = true
+        },
+        filteredList(val) {
+            if (!val.length) {
+                this.updatePadding(false)
+                this.hideLists()
             }
+        },
+        showTagList(val) {
+            val
+                ? this.updatePadding()
+                : this.updatePadding(false)
+        },
+        showAllTags(val) {
+            val
+                ? this.updatePadding()
+                : this.updatePadding(false)
         }
     }
 }
 </script>
+return

@@ -1,6 +1,8 @@
 <script>
-import Search from './../mixins/search'
+import Fuse from 'fuse.js'
 import TagosItem from './item.vue'
+import Search from './../mixins/search'
+import debounce from 'lodash/debounce'
 
 export default {
     components: {TagosItem},
@@ -48,6 +50,7 @@ export default {
             let check = this.tags.some((e) => {
                 return e.name[this.nameLocale] == name && e.type == newType
             })
+
             if (check) {
                 this.searchFor = name
                 return this.showNotif(this.trans('tag_exist'), 'danger')
@@ -128,7 +131,7 @@ export default {
             this.ids = this.tags.map((e) => e.id)
         },
         getTitle(title) {
-            let locale = this.nameLocale
+            let locale = this.selectFirst
             let v = Object.keys(title).indexOf(locale)
 
             return title.hasOwnProperty(locale) ? Object.values(title)[v] : ''
@@ -165,22 +168,25 @@ export default {
                 type: s,
                 duration: duration
             })
-        }
-    },
-    watch: {
-        searchFor(val) {
+        },
+        updateList: debounce(function () {
+            let val = this.searchFor
+            let list = this.list
+
             if (val) {
+                const locale = this.selectFirst
                 let type = this.searchFieldType
                 let test = type == 'name'
 
-                return this.tags = this.list.filter((e) => {
-                    return test
-                        ? this.getTitle(e[type]).includes(val)
-                        : e[type] ? e[type].includes(val) : false
-                })
+                return this.tags = new Fuse(list, {keys: test ? [`name.${locale}`] : ['type']}).search(val)
             }
 
-            return this.tags = this.list
+            return this.tags = list
+        }, 250)
+    },
+    watch: {
+        searchFor(val) {
+            this.updateList()
         }
     },
     render() {}
