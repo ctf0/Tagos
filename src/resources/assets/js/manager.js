@@ -1,6 +1,6 @@
 /*                Libs                */
-window.Vue = require('vue')
 window.EventHub = require('vuemit')
+window.Fuse = require('fuse.js')
 
 // axios
 window.axios = require('axios')

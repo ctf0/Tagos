@@ -1,5 +1,4 @@
 <script>
-import Fuse from 'fuse.js'
 import Search from './mixins/search'
 import debounce from 'lodash/debounce'
 

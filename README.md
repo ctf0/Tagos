@@ -1,6 +1,6 @@
 # Tagos
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/ctf0/tagos.svg)](https://packagist.org/packages/ctf0/tagos) [![Total Downloads](https://img.shields.io/packagist/dt/ctf0/tagos.svg)](https://packagist.org/packages/ctf0/tagos) [![Donate with Bitcoin](https://en.cryptobadges.io/badge/micro/16ri7Hh848bw7vxbEevKHFuHXLmsV8Vc9L)](https://en.cryptobadges.io/donate/16ri7Hh848bw7vxbEevKHFuHXLmsV8Vc9L)
+[![Latest Stable Version](https://img.shields.io/packagist/v/ctf0/tagos.svg)](https://packagist.org/packages/ctf0/tagos) [![Total Downloads](https://img.shields.io/packagist/dt/ctf0/tagos.svg)](https://packagist.org/packages/ctf0/tagos)
 
 A Tag **Editor** and **Selector** based on [spatie/laravel-tags](https://github.com/spatie/laravel-tags).
 
@@ -42,6 +42,8 @@ A Tag **Editor** and **Selector** based on [spatie/laravel-tags](https://github.
     - if you are having issues [Check](https://ctf0.wordpress.com/2017/09/12/laravel-mix-es6/)
 
     ```js
+    window.Vue = require('vue')
+    
     require('../vendor/Tagos/js/manager')
 
     new Vue({
@@ -55,7 +57,7 @@ A Tag **Editor** and **Selector** based on [spatie/laravel-tags](https://github.
 - tags editor & selector.
 - show tag suggestion as you type.
 - easily add new tag name & type.
-- taggable models softdelete.
+- support taggable models softdelete.
 - show tagged items by tag & by type.
 - search for tags by name in tags index.
 - shortcuts

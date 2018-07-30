@@ -1,7 +1,7 @@
 @extends('Tagos::partials.shared')
 
 @section('content')
-    <tagos-index inline-template :names-list="{{ $tags->pluck('name') }}">
+    <tagos-index inline-template v-cloak :names-list="{{ $tags->pluck('name') }}">
         <div class="column">
             {{-- search --}}
             <div class="field has-addons has-addons-right">

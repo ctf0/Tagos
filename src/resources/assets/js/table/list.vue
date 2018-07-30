@@ -1,8 +1,8 @@
 <script>
-import Fuse from 'fuse.js'
 import TagosItem from './item.vue'
 import Search from './../mixins/search'
 import debounce from 'lodash/debounce'
+import orderBy from 'lodash/orderBy'
 
 export default {
     components: {TagosItem},
@@ -28,6 +28,7 @@ export default {
     },
     mounted() {
         this.nameLocale = this.selectFirst
+        this.tags = orderBy(this.tags, ['count', 'order'], ['desc', 'asc'])
     },
     computed: {
         itemsCount() {
@@ -53,6 +54,7 @@ export default {
 
             if (check) {
                 this.searchFor = name
+                this.$refs.search.focus()
                 return this.showNotif(this.trans('tag_exist'), 'danger')
             }
 

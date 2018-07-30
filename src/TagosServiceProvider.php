@@ -101,7 +101,7 @@ class TagosServiceProvider extends ServiceProvider
         $search   = 'Tagos';
 
         if ($this->checkExist($mix_file, $search)) {
-            $data = "\n// Tagos\nmix.sass('resources/assets/vendor/Tagos/sass/style.scss', 'public/assets/vendor/Tagos/style.css').version();";
+            $data = "\n// Tagos\nmix.sass('resources/assets/vendor/Tagos/sass/style.scss', 'public/assets/vendor/Tagos/style.css')";
 
             $this->file->append($mix_file, $data);
         }

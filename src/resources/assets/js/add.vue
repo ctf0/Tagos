@@ -78,8 +78,6 @@
 </style>
 
 <script>
-import Fuse from 'fuse.js'
-
 export default {
     props: ['oldList', 'tagsList', 'translation'],
     data() {
@@ -93,6 +91,7 @@ export default {
         }
     },
     created() {
+        window.addEventListener('resize', this.updatePadding)
         document.addEventListener('keydown', this.shortCuts)
         document.addEventListener('click', (e) => {
             if (!this.isFocused('wrapper', e)) {
@@ -215,11 +214,11 @@ export default {
             })
         },
         updatePadding(s = true) {
-            s
-                ? this.$nextTick(() => {
+            !s
+                ? this.listPadding = {'padding-top': 0}
+                : this.$nextTick(() => {
                     this.listPadding = {'padding-top': document.querySelector('.tag-list').clientHeight + 'px'}
                 })
-                : this.listPadding = {'padding-top': 0}
         }
     },
     watch: {

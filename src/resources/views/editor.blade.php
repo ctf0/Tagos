@@ -2,7 +2,7 @@
 @section('title', trans('Tagos::messages.tags'))
 
 @section('content')
-    <tagos-list inline-template
+    <tagos-list inline-template v-cloak
         select-first="{{ app()->getLocale() }}"
         :list="{{ json_encode($tags) }}"
         :translations="{{ json_encode([
@@ -38,6 +38,7 @@
                         {{-- input --}}
                         <p class="control has-icons-left">
                             <input class="input"
+                                ref="search"
                                 type="text"
                                 v-model="searchFor"
                                 placeholder="{{ trans('Tagos::messages.find') }}">
