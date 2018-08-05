@@ -23,7 +23,7 @@ A Tag **Editor** and **Selector** based on [spatie/laravel-tags](https://github.
 
 - publish the package assets with
 
-    `php artisan vendor:publish --provider="ctf0\Tagos\TagosServiceProvider"`  
+    `php artisan vendor:publish --provider="ctf0\Tagos\TagosServiceProvider"`<br>
     `php artisan vendor:publish --provider="Spatie\Tags\TagsServiceProvider" --tag="migrations"`
 
 - after installation, package will auto-add
@@ -42,8 +42,10 @@ A Tag **Editor** and **Selector** based on [spatie/laravel-tags](https://github.
     - if you are having issues [Check](https://ctf0.wordpress.com/2017/09/12/laravel-mix-es6/)
 
     ```js
+    // app.js
+
     window.Vue = require('vue')
-    
+
     require('../vendor/Tagos/js/manager')
 
     new Vue({
