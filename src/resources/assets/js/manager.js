@@ -13,6 +13,21 @@ axios.interceptors.response.use(
     (error) => Promise.reject(error.response)
 )
 
+// vue-tippy
+Vue.use(require('vue-tippy'), {
+    arrow: true,
+    touchHold: true,
+    inertia: true,
+    performance: true,
+    flipDuration: 0,
+    popperOptions: {
+        modifiers: {
+            preventOverflow: {enabled: false},
+            hide: {enabled: false}
+        }
+    }
+})
+
 // vue-awesome
 import 'vue-awesome/icons/search'
 import 'vue-awesome/icons/times'

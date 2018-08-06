@@ -6,5 +6,6 @@
         'add_new' => trans('Tagos::messages.add_new'), 
         'tag_ph' => trans('Tagos::messages.tag_ph'), 
         'type_ph' => trans('Tagos::messages.type_ph'), 
+        'clear_list' => trans('Tagos::messages.clear_list'), 
     ]) }}">
 </tagos>

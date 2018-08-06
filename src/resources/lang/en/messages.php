@@ -16,6 +16,7 @@ return array (
   'no_val' => 'Maybe You Should Add Something First ?!!',
   'ops' => 'Operations',
   'order' => 'Order',
+  'select_all' => 'Select All',
   'select_non' => 'Select Non',
   'slug' => 'Slug',
   'tag_exist' => 'Tag Already Exist',
@@ -24,5 +25,5 @@ return array (
   'type' => 'Type',
   'type_ph' => 'type name',
   'update' => 'Update',
-  'select_all' => 'Select All',
+  'clear_list' => 'Clear Tags List',
 );

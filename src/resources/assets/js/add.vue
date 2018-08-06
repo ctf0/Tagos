@@ -15,7 +15,7 @@
                        @dblclick="showAllTags = true">
 
                 <!-- tags list -->
-                <div v-show="filteredList.length && (showTagList || showAllTags)"
+                <div v-show="filteredList.length && showAllTags"
                      class="tag-list field is-grouped is-grouped-multiline">
                     <div v-for="(item,i) in filteredList"
                          :key="i"
@@ -55,6 +55,14 @@
                     <span class="tag is-danger is-delete is-marginless link" @click="removeFromList(i)"/>
                 </div>
             </div>
+
+            <!-- clear all -->
+            <div v-tippy
+                 v-show="selectedTags.length > 2"
+                 key="delete"
+                 :title="trans('clear_list')"
+                 class="delete"
+                 @click="clearTagsList()"/>
         </transition-group>
     </div>
 </template>
@@ -85,7 +93,6 @@ export default {
             tagName: null,
             tagType: null,
             showAllTags: false,
-            showTagList: true,
             selectedTags: this.oldList || [],
             listPadding: ''
         }
@@ -120,12 +127,16 @@ export default {
     methods: {
         shortCuts(e) {
             let key = e.keyCode
-            let list = this.filteredList.length
 
             // enter
             if (key == 13) {
                 e.preventDefault()
                 e.stopPropagation()
+
+                // name
+                if (this.isFocused('tagName', e)) {
+                    this.addToList()
+                }
 
                 // type
                 if (this.isFocused('tagType', e)) {
@@ -133,12 +144,7 @@ export default {
                         return this.showNotif(this.trans('no_val'), 'warning')
                     }
 
-                    return this.addToList()
-                }
-
-                // name
-                if (!list && this.isFocused('tagName', e)) {
-                    return this.addToList()
+                    this.addToList()
                 }
             }
 
@@ -164,7 +170,8 @@ export default {
                     item.type = this.tagType
                 }
 
-                return this.selectedTags.push(item)
+                this.selectedTags.push(item)
+                return this.updatePadding()
             }
 
             let str = this.tagName
@@ -177,8 +184,10 @@ export default {
             return this.selectedTags.splice(i, 1)
         },
         hideLists() {
-            if (this.showAllTags) return this.showAllTags = false
-            if (this.showTagList) return this.showTagList = false
+            return this.showAllTags = false
+        },
+        clearTagsList() {
+            this.selectedTags = []
         },
 
         // helpers
@@ -223,25 +232,19 @@ export default {
     },
     watch: {
         tagName(val) {
-            if (val == '') this.showTagList = true
+            if (val) {
+                this.showAllTags = true
+                return this.updatePadding()
+            }
+
+            this.hideLists()
         },
         filteredList(val) {
-            if (!val.length) {
-                this.updatePadding(false)
-                this.hideLists()
-            }
-        },
-        showTagList(val) {
-            val
-                ? this.updatePadding()
-                : this.updatePadding(false)
+            if (!val.length) this.hideLists()
         },
         showAllTags(val) {
-            val
-                ? this.updatePadding()
-                : this.updatePadding(false)
+            if (!val) this.updatePadding(false)
         }
     }
 }
 </script>
-return
