@@ -134,9 +134,8 @@ export default {
         },
         getTitle(title) {
             let locale = this.selectFirst
-            let v = Object.keys(title).indexOf(locale)
 
-            return title.hasOwnProperty(locale) ? Object.values(title)[v] : ''
+            return title.hasOwnProperty(locale) ? title[locale] : ''
         },
         trans(key) {
             return this.translations[key]

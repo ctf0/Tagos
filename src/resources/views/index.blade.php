@@ -26,7 +26,7 @@
             {{-- list --}}
             <div class="field is-grouped is-grouped-multiline">
                 @foreach($tags as $tag)
-                    <transition name="slide-up">
+                    <transition name="tag-slide-up">
                         <div class="control" v-show="inSearchList('{{ $tag->name }}')">
                             @if($tag->type)
                                 @if(isset($showType) && $showType == true)

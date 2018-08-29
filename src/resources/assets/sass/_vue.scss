@@ -1,0 +1,19 @@
+$list: (tag-slide-up);
+
+@each $class in $list {
+    .#{$class}-move,
+    .#{$class}-enter-active,
+    .#{$class}-leave-active {
+        transition: all 0.3s ease;
+    }
+
+    .#{$class}-enter,
+    .#{$class}-leave-to {
+        opacity: 0;
+    }
+}
+
+.tag-slide-up-enter,
+.tag-slide-up-leave-to {
+    transform: translateY(-30px);
+}

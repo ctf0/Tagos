@@ -1,4 +1,5 @@
 @import './checkbox';
+@import './vue';
 
 [v-cloak] {
     display: none;
@@ -47,18 +48,6 @@
 
 .toggle-pad {
     padding-right: 32px;
-}
-
-// animation
-.slide-up-enter-active,
-.slide-up-leave-active {
-    transition: all 0.3s ease;
-}
-
-.slide-up-enter,
-.slide-up-leave-to {
-    transform: translateY(-30px);
-    opacity: 0;
 }
 
 // editor

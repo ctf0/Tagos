@@ -46,9 +46,9 @@
         <!-- selected tags -->
         <transition-group :style="listPadding"
                           tag="div"
-                          name="slide-up"
+                          name="tag-slide-up"
                           class="field is-grouped is-grouped-multiline">
-            <div v-for="(item,i) in selectedTags" :key="i" class="control">
+            <div v-for="(item,i) in selectedTags" :key="`${item.name}-${item.type}`" class="control">
                 <div class="tags has-addons">
                     <span class="tag is-info is-marginless">{{ item.name }}</span>
                     <span v-if="item.type" class="tag is-primary is-marginless">{{ item.type }}</span>
@@ -58,7 +58,7 @@
 
             <!-- clear all -->
             <div v-tippy
-                 v-show="selectedTags.length > 2"
+                 v-show="selectedTags.length > 1"
                  key="delete"
                  :title="trans('clear_list')"
                  class="delete"
@@ -66,6 +66,8 @@
         </transition-group>
     </div>
 </template>
+
+<style src="../sass/_vue.scss" lang="scss"></style>
 
 <style scoped lang="scss">
     .field {
@@ -82,6 +84,10 @@
             padding: 1rem 0 0;
             left: 0;
         }
+    }
+
+    .tag-slide-up-leave-active {
+        position: absolute;
     }
 </style>
 
@@ -192,7 +198,7 @@ export default {
 
         // helpers
         isFocused(item, e) {
-            return this.$refs[item].contains(e.target)
+            return this.$refs[item] && this.$refs[item].contains(e.target)
         },
         trans(key) {
             return this.translation[key]
@@ -243,7 +249,9 @@ export default {
             if (!val.length) this.hideLists()
         },
         showAllTags(val) {
-            if (!val) this.updatePadding(false)
+            val
+                ? this.updatePadding()
+                : this.updatePadding(false)
         }
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <transition name="slide-up" mode="out-in">
+    <transition name="tag-slide-up">
         <div class="column is-3">
             <div :data-order="!more ? tagOrder : ''" class="box" @click="showMore()">
                 <!-- select -->
