@@ -1,14 +1,17 @@
-# Tagos
-
-[![Latest Stable Version](https://img.shields.io/packagist/v/ctf0/tagos.svg)](https://packagist.org/packages/ctf0/tagos) [![Total Downloads](https://img.shields.io/packagist/dt/ctf0/tagos.svg)](https://packagist.org/packages/ctf0/tagos)
+<h1 align="center">
+    Tagos
+    <br>
+    <a href="https://packagist.org/packages/ctf0/tagos"><img src="https://img.shields.io/packagist/v/ctf0/tagos.svg" alt="Latest Stable Version" /></a> <a href="https://packagist.org/packages/ctf0/tagos"><img src="https://img.shields.io/packagist/dt/ctf0/tagos.svg" alt="Total Downloads" /></a>
+</h1>
 
 A Tag **Editor** and **Selector** based on [spatie/laravel-tags](https://github.com/spatie/laravel-tags).
 
-<h4 align="center">Editor</h4>
+#### Editor
 <p align="center">
     <img src="https://user-images.githubusercontent.com/7388088/41531521-de565f66-72f3-11e8-8a2a-e07ea1002e1b.png">
 </p>
-<h4 align="center">Selector</h4>
+
+#### Selector
 <p align="center">
     <img src="https://user-images.githubusercontent.com/7388088/38068467-9407081a-3311-11e8-83a5-eea196fb00e3.png">
 </p>
