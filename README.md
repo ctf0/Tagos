@@ -67,7 +67,7 @@ A Tag **Editor** and **Selector** based on [spatie/laravel-tags](https://github.
 - search for tags by name in tags index.
 - shortcuts
 
-    |   navigation   | keyboard | mouse (click) |
+    |  interactions  | keyboard | mouse (click) |
     |----------------|----------|---------------|
     | show all tags  |          | *(input)* 2x  |
     | add new tag    | enter    | *             |
