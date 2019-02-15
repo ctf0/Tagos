@@ -33,10 +33,10 @@ import 'vue-awesome/icons/search'
 import 'vue-awesome/icons/times'
 import 'vue-awesome/icons/trash'
 import 'vue-awesome/icons/anchor'
-Vue.component('icon', require('vue-awesome/components/Icon'))
+Vue.component('icon', require('vue-awesome/components/Icon').default)
 
 /*                Components                */
-Vue.component('Tagos', require('./add.vue'))
-Vue.component('TagosList', require('./table/list.vue'))
-Vue.component('TagosIndex', require('./index.vue'))
-Vue.component('MyNotification', require('vue-notif'))
+Vue.component('Tagos', require('./add.vue').default)
+Vue.component('TagosList', require('./table/list.vue').default)
+Vue.component('TagosIndex', require('./index.vue').default)
+Vue.component('MyNotification', require('vue-notif').default)
