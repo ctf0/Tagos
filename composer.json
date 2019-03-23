@@ -21,7 +21,7 @@
         "php" : "~7.0",
         "illuminate/support": "5.5 - 5.8",
         "spatie/laravel-tags": "*",
-        "ctf0/package-changelog": "^1.0"
+        "ctf0/package-changelog": "*"
     },
     "autoload": {
         "psr-4": {
