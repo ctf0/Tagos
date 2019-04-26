@@ -62,7 +62,6 @@ A Tag **Editor** and **Selector** based on [spatie/laravel-tags](https://github.
 - tags editor & selector.
 - show tag suggestion as you type.
 - easily add new tag name & type.
-- support taggable models softdelete.
 - show tagged items by tag & by type.
 - search for tags by name in tags index.
 - shortcuts
