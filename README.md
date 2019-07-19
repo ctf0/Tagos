@@ -29,7 +29,7 @@ A Tag **Editor** and **Selector** based on [spatie/laravel-tags](https://github.
     `php artisan vendor:publish --provider="ctf0\Tagos\TagosServiceProvider"`<br>
     `php artisan vendor:publish --provider="Spatie\Tags\TagsServiceProvider" --tag="migrations"`
 
-- after installation, package will auto-add
+- after installation, run php artisan `tagos:setup` to add
     + package routes to `routes/web.php`
     + package assets compiling to `webpack.mix.js`
 
