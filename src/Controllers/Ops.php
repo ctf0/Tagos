@@ -7,9 +7,7 @@ trait Ops
     protected function populateLocales($item)
     {
         foreach ($this->locales as $one) {
-            if (!array_get($item, $one)) {
-                $item[$one] = null;
-            }
+            $item[$one] = $item[$one] ?? null;
         }
 
         return $item;
