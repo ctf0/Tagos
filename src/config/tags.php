@@ -2,11 +2,6 @@
 
 return [
     /*
-     * The given function generates a URL friendly "slug" from the tag name property before saving it.
-     */
-    'slugger' => null,
-
-    /*
      * package controller
      * ex."https://github.com/ctf0/Tagos/wiki/Example-Controller"
      *
