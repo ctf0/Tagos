@@ -36,9 +36,7 @@ A Tag **Editor** and **Selector** based on [spatie/laravel-tags](https://github.
 - install dependencies
 
     ```bash
-    yarn add vue vue-awesome@v2 vue-notif vue-tippy@v1 axios fuse.js
-    # or
-    npm install vue vue-awesome@v2 vue-notif vue-tippy@v1 axios fuse.js --save
+    yarn add vue vue-awesome@v2 vue-notif vue-tippy@v2 axios fuse.js
     ```
 
 - add this one liner to your main js file and run `npm run watch` to compile your `js/css` files.
