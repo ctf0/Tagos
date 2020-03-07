@@ -72,32 +72,6 @@ A Tag **Editor** and **Selector** based on [spatie/laravel-tags](https://github.
 
 <br>
 
-## Config
-**config/tags.php**
-
-```php
-return [
-    /*
-     * The given function generates a URL friendly "slug" from the tag name property before saving it.
-     */
-    'slugger' => 'str_slug',
-
-    /*
-     * package controller
-     * ex."https://github.com/ctf0/Tagos/wiki/Example-Controller"
-     */
-    'controller' => '\ctf0\Tagos\Controllers\TagosController',
-
-    /*
-     * package tag model
-     * ex."https://github.com/ctf0/Tagos/wiki/Example-Model"
-     */
-    'model' => Spatie\Tags\Tag::class,
-];
-```
-
-<br>
-
 ## Usage
 
 - migrate the tags table with `php artisan migrate`
